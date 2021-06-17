@@ -1,0 +1,3 @@
+<h1>Edit Recipe</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.recipe_path(@conn, :update, @recipe)) %>

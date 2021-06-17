@@ -1,0 +1,34 @@
+<h1><%= @recipe.name %></h1>
+
+<ul>
+    <%= if @recipe.img_id != nil do %>
+    <img src="/uploads/<%= @recipe.img_id%>">
+    <% end %>
+
+  <li>
+    <strong>Time:</strong>
+    <%= @recipe.time %> minutes
+  </li>
+
+  <li>
+    <strong>Ingredients:</strong>
+    <%= @recipe.ingredients %>
+  </li>
+
+  <li>
+    <strong>Instructions:</strong>
+    <%= @recipe.instructions %>
+  </li>
+
+</ul>
+
+<%= link "Home", to: Routes.recipe_path(@conn, :index), class: "button btn-primary" %>
+<%= link "Edit", to: Routes.recipe_path(@conn, :edit, @recipe), class: "button btn-primary" %>
+
+<style>
+h1,
+strong {
+    font-family: cursive;
+    font-style: italic
+}
+</style>

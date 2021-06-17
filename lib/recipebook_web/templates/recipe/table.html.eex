@@ -1,0 +1,37 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Time</th>
+      <th>Ingredients</th>
+      <th>Instructions</th>
+      <th>Img</th>
+      <th>Modify</th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for recipe <- @recipes do %>
+    <tr>
+      <td><%= recipe.name %></td>
+      <td><%= recipe.time %></td>
+      <td><%= recipe.ingredients %></td>
+      <td><%= recipe.instructions %></td>
+      <td>
+      <%= if recipe.img_id != nil do %>
+        ID: <%= recipe.img_id %>
+        <% else %>
+        None
+      <%end %>
+      </td>
+      <td>
+        <span><%= link "View", to: Routes.recipe_path(@conn, :show, recipe) %></span>
+        <span><%= link "Edit", to: Routes.recipe_path(@conn, :edit, recipe) %></span>
+        <span><%= link "Delete", to: Routes.recipe_path(@conn, :delete, recipe), method: :delete, data: [confirm: "Are you sure?"] %></span>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<%= link "New Recipe", to: Routes.recipe_path(@conn, :new), class: "button btn-primary" %>
+<%= link "Recipe View", to: Routes.recipe_path(@conn, :index), class: "button btn-primary" %>
