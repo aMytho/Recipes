@@ -18,7 +18,7 @@
   <%= error_tag f, :ingredients %>
 
   <%= label f, :instructions %>
-  <%= text_input f, :instructions %>
+  <%= textarea f, :instructions %>
   <%= error_tag f, :instructions %>
 
   <div class="form-group">
