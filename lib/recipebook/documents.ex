@@ -9,6 +9,11 @@ defmodule Recipebook.Documents do
 		|> Repo.get!(id)
 	end
 
+  def find_without_error(id) do
+    Upload
+    |> Repo.get(id)
+  end
+
 	def list_uploads do
 		Repo.all(Upload)
 	end

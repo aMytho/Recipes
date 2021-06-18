@@ -22,7 +22,6 @@ defmodule RecipebookWeb.RecipeController do
 
   def create(conn, %{"recipe" => recipe_params}) do
     recipe_params = add_image_if_exists(recipe_params)
-    IO.puts "aaaaaaa"
     IO.inspect recipe_params
     case RecipeList.create_recipe(recipe_params) do
       {:ok, recipe} ->
@@ -54,7 +53,8 @@ defmodule RecipebookWeb.RecipeController do
 
   def update(conn, %{"id" => id, "recipe" => recipe_params}) do
     recipe = RecipeList.get_recipe!(id)
-
+    recipe_params = edit_image_if_exists(recipe, recipe_params)
+    IO.inspect recipe_params
     case RecipeList.update_recipe(recipe, recipe_params) do
       {:ok, recipe} ->
         conn
@@ -75,18 +75,38 @@ defmodule RecipebookWeb.RecipeController do
   end
 
   defp add_image_if_exists(data) do
-    IO.puts "here"
     if data["img_id"] do
-      case Documents.create_upload_from_plug_upload(data["img_id"]) do
-        {:ok, upload}->
-          IO.puts "Everything is good"
-          Map.put(data, "img_id", upload.id)
-        {:error, reason}->
-          IO.puts "Error with image"
-          reason
+      upload_img(data)
+    else
+      Map.put(data, "img_id", -1)
+    end
+  end
+
+  defp edit_image_if_exists(old, new) do
+    if old.img_id == -1 or old.img_id == nil do
+      IO.inspect new["img_id"]
+      if new["img_id"] == nil do
+        Map.put(new, "img_id", -1)
+      else
+        upload_img(new)
       end
     else
-      Map.put(data, :img_id, nil)
+      if new["img_id"] == nil do
+        Map.put(new, "img_id", old.img_id)
+      else
+        upload_img(new)
+      end
+    end
+  end
+
+  defp upload_img(data) do
+    case Documents.create_upload_from_plug_upload(data["img_id"]) do
+      {:ok, upload}->
+        IO.puts "IMG upload succeeded"
+        Map.put(data, "img_id", upload.id)
+      {:error, reason}->
+        IO.puts "Error with image"
+        reason
     end
   end
 end

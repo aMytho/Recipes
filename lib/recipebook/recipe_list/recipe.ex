@@ -8,14 +8,14 @@ defmodule Recipebook.RecipeList.Recipe do
     field :name, :string
     field :time, :integer
     field :img_file_path, :string # Unused
-    field :img_id, :integer
+    field :img_id, :integer, default: -1
 
     timestamps()
   end
 
   @doc false
   def changeset(recipe, attrs) do
-    IO.puts "abt to add recipe to db"
+    IO.inspect attrs
     IO.inspect(recipe)
     recipe
     |> cast(attrs, [:name, :time, :ingredients, :instructions, :img_id])

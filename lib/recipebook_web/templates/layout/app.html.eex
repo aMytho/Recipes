@@ -7,7 +7,7 @@
     <title>Recipebook · Phoenix Framework</title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-    <link rel="shortcut icon" type="image/jpg" src="<%= Routes.static_path(@conn, "/images/spoon.png") %>"/>
+    <link rel="shortcut icon" type="image/jpg" src="<%= Routes.static_path(@conn, "/favicon.ico") %>"/>
   </head>
   <body>
     <header>

@@ -17,7 +17,7 @@
       <td><%= recipe.ingredients %></td>
       <td><%= recipe.instructions %></td>
       <td>
-      <%= if recipe.img_id != nil do %>
+      <%= if recipe.img_id != nil and recipe.img_id !== -1 do %>
         ID: <%= recipe.img_id %>
         <% else %>
         None
